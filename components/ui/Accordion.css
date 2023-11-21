@@ -1,0 +1,32 @@
+.accordion-title {
+  transition: 0.4s;
+}
+
+.accordion-title:hover {
+  background-color: #ddd;
+}
+
+.accordion-title:after {
+  content: "\002B";
+  color: #777;
+  font-weight: bold;
+  float: right;
+}
+
+.accordion-title.open:after {
+  content: "\2212";
+}
+
+.accordion-item {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.accordion-item.collapsed {
+  max-height: 0px !important;
+}
+
+.accordion-content {
+  padding-left: 18px;
+}
