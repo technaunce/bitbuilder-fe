@@ -8,6 +8,7 @@ export default function AdvancedFilter({ contents, closeItself }) {
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
   const handleFilterSubmit = async () => {
+    console.log("Selected Value: ",selectedValues)
     await applyFilter(selectedValues);
     closeItself();
   };

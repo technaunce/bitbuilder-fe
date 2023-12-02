@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import useDebounce from "../utils/useDebounce";
+import { useFilterStore } from "../app/store/filter";
 
 export default function BannerSearch() {
   const [isFocused, setIsFocused] = useState(false);
@@ -12,6 +13,7 @@ export default function BannerSearch() {
   const [search, setSearch] = useState(param);
   // useDebounce(search,)
 
+  const { apply: applyFilter } = useFilterStore();
   const wrapperRef = useRef(null);
 
   const results = [
@@ -68,6 +70,13 @@ export default function BannerSearch() {
   };
 
   const triggerSearch = () => {
+    applyFilter([
+      {
+        id: 0,
+        label: search,
+        title: "title",
+      },
+    ]);
     console.log(search);
   };
 
