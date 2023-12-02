@@ -12,7 +12,7 @@ import { useFilterStore } from "../app/store/filter";
 import Tag from "./tags/tag";
 import Filter from "./filter/filter";
 
-const HomeFilter = ({ setView }) => {
+const HomeFilter = ({ setView, count }) => {
   const [showContainer, setShowContainer] = useState(false);
   const [toggleView, setToggleView] = useState(false);
   const searchParams = useSearchParams();
@@ -26,7 +26,9 @@ const HomeFilter = ({ setView }) => {
     clear: clearFilter,
     getFilterContents,
   } = useFilterStore();
-  const [filterContents,setFilterContents] = useState(filterContext.filterContents)
+  const [filterContents, setFilterContents] = useState(
+    filterContext.filterContents
+  );
 
   const toggleContainer = () => {
     setShowContainer(!showContainer);
@@ -36,16 +38,16 @@ const HomeFilter = ({ setView }) => {
     removeFilter(label);
   };
 
-  const handleFilterContents = (status,response)=>{
-    if(status){
-      console.log(response.data[0])
-      setFilterContents(response.data[0])
+  const handleFilterContents = (status, response) => {
+    if (status) {
+      console.log(response.data[0]);
+      setFilterContents(response.data[0]);
     }
-  }
+  };
 
-  useEffect(()=>{
-    getFilterContents(handleFilterContents)
-  },[])
+  useEffect(() => {
+    getFilterContents(handleFilterContents);
+  }, []);
   useEffect(() => {
     if (filterContext.filterData.length >= 5) {
       const splicedList = [...filterContext.filterData].splice(0, 4);
@@ -95,7 +97,7 @@ const HomeFilter = ({ setView }) => {
             <>
               <CardTitle
                 title={`${search ? "Results" : "Live Auction"}`}
-                count={32}
+                count={count || 0}
                 link={`${search ? "" : "/"}`}
                 showViewAll={false}
                 fontLight={true}
@@ -113,7 +115,7 @@ const HomeFilter = ({ setView }) => {
         <div className="container">
           <CardTitle
             title={`${search ? "Results" : "Live Auction"}`}
-            count={32}
+            count={count || 0}
             link={`${search ? "" : "/"}`}
             showViewAll={false}
             fontLight={true}
@@ -122,7 +124,12 @@ const HomeFilter = ({ setView }) => {
       )}
 
       <div className="container">
-        {showContainer && <AdvancedFilter contents={filterContents} closeItself={toggleContainer} />}
+        {showContainer && (
+          <AdvancedFilter
+            contents={filterContents}
+            closeItself={toggleContainer}
+          />
+        )}
       </div>
     </>
   );

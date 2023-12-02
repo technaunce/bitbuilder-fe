@@ -116,13 +116,17 @@ export default function Home() {
           id="overlay-search"
           className="absolute inset-0 z-40 hidden h-full bg-white opacity-50"
         ></div>
-        <HomeFilter setView={setIsSlideView} />
+        <HomeFilter setView={setIsSlideView} count={liveAuctionsList.length} />
         {liveAuctionsList.length
           ? renderCarsList(liveAuctionsList)
           : renderNoDataCard()}
 
         <section className="container">
-          <CardTitle title={"Recently sold"} count={32} link={`\\`}></CardTitle>
+          <CardTitle
+            title={"Recently sold"}
+            count={recentlySoldList.length}
+            link={`\\`}
+          ></CardTitle>
         </section>
         {recentlySoldList.length
           ? renderCarsList(recentlySoldList)
@@ -131,7 +135,7 @@ export default function Home() {
         <section className="container">
           <CardTitle
             title={"Recently Unsold"}
-            count={32}
+            count={recentlyUnsoldList.length}
             link={`\\`}
           ></CardTitle>
         </section>
@@ -140,7 +144,11 @@ export default function Home() {
           : renderNoDataCard()}
 
         <section className="container">
-          <CardTitle title={"Coming Soon"} count={32} link={`\\`}></CardTitle>
+          <CardTitle
+            title={"Coming Soon"}
+            count={comingSoonList.length}
+            link={`\\`}
+          ></CardTitle>
         </section>
         {comingSoonList.length
           ? renderCarsList(comingSoonList)
