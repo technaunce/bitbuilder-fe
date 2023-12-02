@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { getData } from "../../api/api";
+import { getData,postData } from "../../api/api";
 import { apiEndpoints } from "../../api/endpoints";
 
 const initialState = {
@@ -35,12 +35,25 @@ export const useCarsList = create((set) => ({
   getComingSoonList: (callback, filterQuery) => {
     getList(callback, "comingSoon", filterQuery); // TODO: Use the same name in Back End
   },
+  subscribeToNewsletter: (data, callback) => {
+    subscribe(callback, data);
+  },
 }));
 
 const getList = (callback, auctionStatus, filterQuery) => {
   getData(
     `${apiEndpoints.auctionList}?auctionStatus=${auctionStatus}&${filterQuery}`
   )
+    .then((response) => {
+      callback(true, response);
+    })
+    .catch((error) => {
+      callback(false, error);
+    });
+};
+
+const subscribe = (callback, data) => {
+  getData(`${apiEndpoints.newsletter}`, { data: { email: data.email } })
     .then((response) => {
       callback(true, response);
     })

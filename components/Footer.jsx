@@ -1,11 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
+import { useCarsList } from "../app/store/listOfCars";
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const { subscribeToNewsletter } = useCarsList();
+
+  const handleSubmitCallback = (status, response) => {
+    console.log(status, response);
+  };
+
+  const onSubmit = () => {
+    const data = { email, name };
+    console.log(data)
+    subscribeToNewsletter(data, handleSubmitCallback);
+  };
+
+  const onNameChange = (event) => {
+    const nameValue = event.target.value;
+    setName(nameValue);
+  };
+
+  const onEmailChange = (event) => {
+    const emailValue = event.target.value;
+    setEmail(emailValue);
+  };
   return (
     <>
       <div
         className="bg-cover w-full h-[663px] -z-10 absolute bottom-[369px] bg-newsletter"
-        style={{ backgroundPositionX: "center" }}></div>
+        style={{ backgroundPositionX: "center" }}
+      ></div>
       <section className="mt-28 container sm:mt-[40px] xmd:mt-20">
         <div className="max-w-[660px] mx-auto">
           <h2 className="text-6xl font-black tracking-[-0.869px] text-center md:text-[32px]">
@@ -19,18 +44,24 @@ export default function Footer() {
             <input
               type="text"
               placeholder="Name"
+              onChange={onNameChange}
+              value={name}
               className="w-1/2 pb-5 text-secondary placeholder:text-secondary placeholder:font-black border-b border-secondary md:w-full md:pb-[14px]"
             />
             <input
               type="email"
               placeholder="Email"
+              onChange={onEmailChange}
+              value={email}
               className="w-1/2 pb-5 text-secondary placeholder:text-secondary placeholder:font-black border-b border-secondary md:w-full md:pb-[14px]"
             />
           </div>
           <button
             type="button"
+            onClick={onSubmit}
             className="flex justify-center items-center text-primary w-full h-[77px] box-border p-4 bg-secondary
-             transition group hover:text-secondary hover:bg-primary hover:border hover:border-secondary mb-20 xmd:mb-10 sm:mb-[18px] sm:h-12">
+             transition group hover:text-secondary hover:bg-primary hover:border hover:border-secondary mb-20 xmd:mb-10 sm:mb-[18px] sm:h-12"
+          >
             <span className="text-xl font-medium sm:text-base">
               Submit Details
             </span>
@@ -41,7 +72,8 @@ export default function Footer() {
               width="26"
               height="21"
               viewBox="0 0 26 21"
-              fill="none">
+              fill="none"
+            >
               <path
                 d="M14.0973 1L24 10.2807L14.0973 20"
                 stroke="#E8DECF"
@@ -65,7 +97,8 @@ export default function Footer() {
           viewBox="0 0 346 427"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="md:w-14 md:h-20">
+          className="md:w-14 md:h-20"
+        >
           <path
             d="M162.604 0.662598C151.404 3.56259 140.204 12.6626 134.804 23.4626C131.504 29.8626 131.404 30.5626 131.404 41.6626C131.404 52.7626 131.504 53.4626 134.804 60.1626C138.504 67.7626 146.504 76.4626 151.804 78.5626L154.904 79.8626V153.763V227.663H172.904H190.904V153.763C190.904 80.3626 190.904 79.7626 192.904 79.1626C196.104 78.1626 206.504 68.0626 209.204 63.3626C216.004 51.8626 216.704 36.3626 211.204 24.3626C206.904 15.2626 200.304 8.4626 191.304 4.06259C184.904 0.862595 182.904 0.362595 175.204 0.0625916C170.404 -0.137405 164.704 0.162598 162.604 0.662598Z"
             fill="#E8DECF"
