@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function FilterCheckboxList({ title, itemList, onSelection }) {
-  return (
-    <div>
-      <h6 className="font-medium">{title}</h6>
-      <ul className="mt-8 list-none">
-        {itemList && itemList.map((item, index) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const originalList = [...itemList];
+  const topNine = originalList.splice(0, 9);
+
+  const getListElements = () => {
+    return (
+      <>
+        {topNine.map((item, index) => {
           return (
             <li className="flex items-center" key={`${index}${item}${index}`}>
               <input
                 onChange={(e) => {
-                  onSelection({label:item,id:index}, e.target.checked)
+                  onSelection(
+                    { label: item, id: index, title: title },
+                    e.target.checked
+                  );
                 }}
                 type="checkbox"
                 className="mr-5"
@@ -21,10 +28,43 @@ export default function FilterCheckboxList({ title, itemList, onSelection }) {
             </li>
           );
         })}
+        {isExpanded &&
+          originalList.map((item, index) => {
+            return (
+              <li className="flex items-center" key={`${index}${item}${index}`}>
+                <input
+                  onChange={(e) => {
+                    onSelection(
+                      { label: item, id: index, title: title },
+                      e.target.checked
+                    );
+                  }}
+                  type="checkbox"
+                  className="mr-5"
+                />
+                <label className="text-grey-body" htmlFor="">
+                  {item}
+                </label>
+              </li>
+            );
+          })}
+      </>
+    );
+  };
+  return (
+    <div>
+      <h6 className="font-medium">{title}</h6>
+      <ul className="mt-8 list-none">
+        {itemList && getListElements()}
         {itemList.length > 9 && (
-          <li className="flex items-center justify-center !mt-[27px]">
+          <li
+            className="flex items-center justify-center !mt-[27px]"
+            onClick={() => {
+              setIsExpanded(!isExpanded);
+            }}
+          >
             <p className="mr-[11px] text-cream font-normal tracking-wide">
-              View All
+              {isExpanded ? "View Less" : "View All"}
             </p>
             <svg
               xmlns="http://www.w3.org/2000/svg"
