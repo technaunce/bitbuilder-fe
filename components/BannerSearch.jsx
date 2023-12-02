@@ -58,7 +58,6 @@ export default function BannerSearch() {
   const handleBlur = (e) => {
     e.preventDefault();
     if (e.target.id === "search-results") return;
-    console.log(e);
     setIsFocused(false);
   };
 
@@ -77,7 +76,6 @@ export default function BannerSearch() {
         title: "title",
       },
     ]);
-    console.log(search);
   };
 
   useEffect(() => {

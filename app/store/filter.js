@@ -9,7 +9,6 @@ const initialState = {
 };
 
 const removeFromList = (list, itemToRemove) => {
-  console.log(list, itemToRemove);
   return list.filter((item) => item.label !== itemToRemove);
 };
 
@@ -24,7 +23,6 @@ export const useFilterStore = create((set) => ({
     set((state) => ({ context: initialState }));
   },
   remove: (dataToRemove) => {
-    console.log(dataToRemove);
     set((state) => ({
       context: {
         ...state.context,

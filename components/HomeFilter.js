@@ -40,7 +40,6 @@ const HomeFilter = ({ setView, count }) => {
 
   const handleFilterContents = (status, response) => {
     if (status) {
-      console.log(response.data[0]);
       setFilterContents(response.data[0]);
     }
   };

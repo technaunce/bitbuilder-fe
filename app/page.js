@@ -49,40 +49,32 @@ export default function Home() {
   );
   const [comingSoonList, setComingSoonList] = useState(context.comingSoon);
 
-  useEffect(() => {
-    console.log(comingSoonList.length);
-  });
-
   //API handlers
   const handleLiveAuctionList = (status, response) => {
-    if (status) {
-      setLiveAuctions(response.data); // set in store
-      setLiveAuctionsList(response.data);
-    } else {
+    setLiveAuctions(response.data || []); // set in store
+    setLiveAuctionsList(response.data || []);
+    if (!status) {
       console.log("error in API");
     }
   };
   const handleRecentlySoldList = (status, response) => {
-    if (status) {
-      setRecentlySold(response.data); // set in store
-      setRecentlySoldList(response.data);
-    } else {
+    setRecentlySold(response.data || []); // set in store
+    setRecentlySoldList(response.data || []);
+    if (!status) {
       console.log("error in API");
     }
   };
   const handleRecentlyUnsoldList = (status, response) => {
-    if (status) {
-      setRecentlyUnsold(response.data); // set in store
-      setRecentlyUnsoldList(response.data);
-    } else {
+    setRecentlyUnsold(response.data || []); // set in store
+    setRecentlyUnsoldList(response.data || []);
+    if (!status) {
       console.log("error in API");
     }
   };
   const handleComingSoon = (status, response) => {
-    if (status) {
-      setComingSoon(response.data); // set in store
-      setComingSoonList(response.data);
-    } else {
+    setComingSoon(response.data || []); // set in store
+    setComingSoonList(response.data || []);
+    if (!status) {
       console.log("error in API");
     }
   };
