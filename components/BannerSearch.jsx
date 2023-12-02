@@ -1,17 +1,18 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import useDebounce from "../utils/useDebounce";
 
 export default function BannerSearch() {
   const [isFocused, setIsFocused] = useState(false);
+  const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
   const searchParams = useSearchParams();
   const param = searchParams.get("search");
   const [search, setSearch] = useState(param);
   // useDebounce(search,)
 
-  
+  const wrapperRef = useRef(null);
 
   const results = [
     {
@@ -40,8 +41,10 @@ export default function BannerSearch() {
     const value = e.target.value;
     setSearch(value);
     if (value) {
+      setIsSuggestionsOpen(true);
       document.getElementById("overlay-search").style.display = "block";
     } else {
+      setIsSuggestionsOpen(false);
       document.getElementById("overlay-search").style.display = "none";
     }
   };
@@ -57,9 +60,24 @@ export default function BannerSearch() {
     setIsFocused(false);
   };
 
+  const handleClickOutside = (event) => {
+    if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+      setIsSuggestionsOpen(false);
+      document.getElementById("overlay-search").style.display = "none";
+    }
+  };
+
   const triggerSearch = () => {
     console.log(search);
   };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
   return (
     <>
       {param && (
@@ -88,7 +106,9 @@ export default function BannerSearch() {
         />
 
         <div
-          className={`${param ? "flex flex-row items-center" : ""} cursor-pointer`}
+          className={`${
+            param ? "flex flex-row items-center" : ""
+          } cursor-pointer`}
           onClick={triggerSearch}
         >
           {param && <p className="text-primary mr-[10px]">Search Again</p>}
@@ -121,9 +141,10 @@ export default function BannerSearch() {
           </svg>
         </div>
       </div>
-      {search ? (
+      {isSuggestionsOpen ? (
         <>
           <div
+            ref={wrapperRef}
             className="w-full max-w-[852px] min-h-[400px] py-10 px-12 bg-white rounded-sm shadow-t1 absolute z-50 mx-auto left-0 right-0 top-[100px]
               md:min-h-[300px] md:p-8"
           >
