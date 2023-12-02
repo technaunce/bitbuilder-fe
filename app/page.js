@@ -12,6 +12,9 @@ import Footer from "../components/Footer";
 import HomeGridCards from "../components/HomeGridCards";
 import { useSearchParams } from "next/navigation";
 import { useCarsList } from "./store/listOfCars";
+import ProductCard from "../components/ProductCard";
+import { SwiperSlide } from "swiper/react";
+import ProductCardPlaceholder from "../components/productCardPlaceholder";
 
 export default function Home() {
   const [isSlideView, setIsSlideView] = useState(true);
@@ -41,6 +44,10 @@ export default function Home() {
     context.recentlyUnsold
   );
   const [comingSoonList, setComingSoonList] = useState(context.comingSoon);
+
+  useEffect(() => {
+    console.log(comingSoonList.length);
+  });
 
   //API handlers
   const handleLiveAuctionList = (status, response) => {
@@ -80,10 +87,30 @@ export default function Home() {
   useEffect(() => {
     getLiveAuctionList(handleLiveAuctionList);
     getRecentlySoldList(handleRecentlySoldList);
-    getRecentlyUnsoldList(handleRecentlyUnsoldList)
-    getComingSoonList(handleComingSoon)
+    getRecentlyUnsoldList(handleRecentlyUnsoldList);
+    getComingSoonList(handleComingSoon);
   }, []);
 
+  const renderCarsList = (data) => {
+    if (isSlideView && !search) {
+      return <SwiperSingle data={data} />;
+    } else {
+      <HomeGridCards></HomeGridCards>;
+    }
+  };
+
+  const renderNoDataCard = () => {
+    const dataForNoData = [{
+      _id:"nodata",
+      description:"No data under this category",
+      title:" ",
+      images:["../asset/carPlaceholder.jpg"],
+    }]
+    return (
+      <ProductCardPlaceholder isLoading={false}/>
+      // <SwiperSingle data={dataForNoData}/>
+    );
+  };
   return (
     <div className="main">
       <Header />
@@ -94,20 +121,14 @@ export default function Home() {
           className="absolute inset-0 z-40 hidden h-full bg-white opacity-50"
         ></div>
         <HomeFilter setView={setIsSlideView} />
-        {isSlideView && !search ? (
-          <SwiperSingle data={liveAuctionsList} />
-        ) : (
-          <HomeGridCards></HomeGridCards>
-        )}
+        { liveAuctionsList.length ? renderCarsList(liveAuctionsList): renderNoDataCard()}
 
         <section className="container">
           <CardTitle title={"Recently sold"} count={32} link={`\\`}></CardTitle>
         </section>
-        {isSlideView && !search ? (
-          <SwiperSingle data={recentlySoldList} />
-        ) : (
-          <HomeGridCards></HomeGridCards>
-        )}
+        {recentlySoldList.length
+          ? renderCarsList(recentlySoldList)
+          : renderNoDataCard()}
 
         <section className="container">
           <CardTitle
@@ -116,19 +137,13 @@ export default function Home() {
             link={`\\`}
           ></CardTitle>
         </section>
-        {isSlideView && !search ? (
-          <SwiperSingle data={recentlyUnsoldList}/>
-        ) : (
-          <HomeGridCards></HomeGridCards>
-        )}
+        {recentlyUnsoldList.length ? renderCarsList(recentlyUnsoldList): renderNoDataCard()}
+
         <section className="container">
           <CardTitle title={"Coming Soon"} count={32} link={`\\`}></CardTitle>
         </section>
-        {isSlideView && !search ? (
-          <SwiperSingle data={comingSoonList}/>
-        ) : (
-          <HomeGridCards></HomeGridCards>
-        )}
+        {comingSoonList.length ? renderCarsList(comingSoonList):renderNoDataCard()}
+
         <Footer />
       </section>
     </div>
