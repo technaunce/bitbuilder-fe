@@ -23,22 +23,24 @@ export const useCarsList = create((set) => ({
   setComingSoon: (data) => {
     return set((state) => ({ ...state.context, comingSoon: data }));
   },
-  getLiveAuctionList: (callback) => {
-    getList(callback, "Live");
+  getLiveAuctionList: (callback, filterQuery) => {
+    getList(callback, "Live", filterQuery);
   },
-  getRecentlySoldList: (callback) => {
-    getList(callback, "recentlySold");  // TODO: Use the same name in Back End
+  getRecentlySoldList: (callback, filterQuery) => {
+    getList(callback, "recentlySold", filterQuery); // TODO: Use the same name in Back End
   },
-  getRecentlyUnsoldList: (callback) => {
-    getList(callback, "recentlyUnsold");   // TODO: Use the same name in Back End
+  getRecentlyUnsoldList: (callback, filterQuery) => {
+    getList(callback, "recentlyUnsold", filterQuery); // TODO: Use the same name in Back End
   },
-  getComingSoonList: (callback) => {
-    getList(callback, "comingSoon");   // TODO: Use the same name in Back End
+  getComingSoonList: (callback, filterQuery) => {
+    getList(callback, "comingSoon", filterQuery); // TODO: Use the same name in Back End
   },
 }));
 
-const getList = (callback, auctionStatus) => {
-  getData(`${apiEndpoints.auctionList}?auctionStatus=${auctionStatus}`)
+const getList = (callback, auctionStatus, filterQuery) => {
+  getData(
+    `${apiEndpoints.auctionList}?auctionStatus=${auctionStatus}&${filterQuery}`
+  )
     .then((response) => {
       callback(true, response);
     })

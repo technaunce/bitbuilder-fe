@@ -12,9 +12,9 @@ import Footer from "../components/Footer";
 import HomeGridCards from "../components/HomeGridCards";
 import { useSearchParams } from "next/navigation";
 import { useCarsList } from "./store/listOfCars";
-import ProductCard from "../components/ProductCard";
-import { SwiperSlide } from "swiper/react";
 import ProductCardPlaceholder from "../components/productCardPlaceholder";
+import { useFilterStore } from "./store/filter";
+import createUrlParamsForFilter from "../utils/createFilterContent";
 
 export default function Home() {
   const [isSlideView, setIsSlideView] = useState(true);
@@ -32,6 +32,10 @@ export default function Home() {
     setComingSoon,
     context,
   } = useCarsList((state) => state);
+
+  const {
+    context: { filterData },
+  } = useFilterStore((state) => state);
 
   //Set list of cars
   const [liveAuctionsList, setLiveAuctionsList] = useState(
@@ -85,11 +89,12 @@ export default function Home() {
 
   //API calls
   useEffect(() => {
-    getLiveAuctionList(handleLiveAuctionList);
-    getRecentlySoldList(handleRecentlySoldList);
-    getRecentlyUnsoldList(handleRecentlyUnsoldList);
-    getComingSoonList(handleComingSoon);
-  }, []);
+    const queryString = createUrlParamsForFilter(filterData);
+    getLiveAuctionList(handleLiveAuctionList, queryString);
+    getRecentlySoldList(handleRecentlySoldList, queryString);
+    getRecentlyUnsoldList(handleRecentlyUnsoldList, queryString);
+    getComingSoonList(handleComingSoon, queryString);
+  }, [filterData]);
 
   const renderCarsList = (data) => {
     if (isSlideView && !search) {
@@ -100,14 +105,16 @@ export default function Home() {
   };
 
   const renderNoDataCard = () => {
-    const dataForNoData = [{
-      _id:"nodata",
-      description:"No data under this category",
-      title:" ",
-      images:["../asset/carPlaceholder.jpg"],
-    }]
+    const dataForNoData = [
+      {
+        _id: "nodata",
+        description: "No data under this category",
+        title: " ",
+        images: ["../asset/carPlaceholder.jpg"],
+      },
+    ];
     return (
-      <ProductCardPlaceholder isLoading={false}/>
+      <ProductCardPlaceholder isLoading={false} />
       // <SwiperSingle data={dataForNoData}/>
     );
   };
@@ -121,7 +128,9 @@ export default function Home() {
           className="absolute inset-0 z-40 hidden h-full bg-white opacity-50"
         ></div>
         <HomeFilter setView={setIsSlideView} />
-        { liveAuctionsList.length ? renderCarsList(liveAuctionsList): renderNoDataCard()}
+        {liveAuctionsList.length
+          ? renderCarsList(liveAuctionsList)
+          : renderNoDataCard()}
 
         <section className="container">
           <CardTitle title={"Recently sold"} count={32} link={`\\`}></CardTitle>
@@ -137,12 +146,16 @@ export default function Home() {
             link={`\\`}
           ></CardTitle>
         </section>
-        {recentlyUnsoldList.length ? renderCarsList(recentlyUnsoldList): renderNoDataCard()}
+        {recentlyUnsoldList.length
+          ? renderCarsList(recentlyUnsoldList)
+          : renderNoDataCard()}
 
         <section className="container">
           <CardTitle title={"Coming Soon"} count={32} link={`\\`}></CardTitle>
         </section>
-        {comingSoonList.length ? renderCarsList(comingSoonList):renderNoDataCard()}
+        {comingSoonList.length
+          ? renderCarsList(comingSoonList)
+          : renderNoDataCard()}
 
         <Footer />
       </section>
