@@ -27,13 +27,13 @@ export const useCarsList = create((set) => ({
     getList(callback, "Live");
   },
   getRecentlySoldList: (callback) => {
-    getList(callback, "Live");
+    getList(callback, "recentlySold");  // TODO: Use the same name in Back End
   },
   getRecentlyUnsoldList: (callback) => {
-    getList(callback, "Live");
+    getList(callback, "recentlyUnsold");   // TODO: Use the same name in Back End
   },
   getComingSoonList: (callback) => {
-    getList(callback, "Live");
+    getList(callback, "comingSoon");   // TODO: Use the same name in Back End
   },
 }));
 
