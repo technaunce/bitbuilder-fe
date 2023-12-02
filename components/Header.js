@@ -15,7 +15,7 @@ const Header = ({ isHome = true }) => {
           {!isHome ? (
             <>
               <div
-                className="flex justify-center absolute top-0 cursor-pointer left-0 right-0"
+                className="absolute top-0 left-0 right-0 flex justify-center cursor-pointer"
                 onClick={() => setNavActive(!navActive)}>
                 <span className="absolute z-10">
                   <p className="text-sm tracking-[0.788px] pt-2 md:hidden">
@@ -136,7 +136,7 @@ const Header = ({ isHome = true }) => {
               </svg>
               <span className="pr-6 border-r border-[#3F4546] md:border-0 md:pl-2 md:pr-0 sm:pl-0">
                 <p className="mb-1 text-right text-grey-title md:mb-0 sm:mt-3 sm:text-sm">Previous car</p>
-                <p className="ml-11 text-right text-lg text-primary sm:hidden">
+                <p className="text-lg text-right ml-11 text-primary sm:hidden">
                   1973 Mercedez Benz
                 </p>
               </span>
@@ -159,7 +159,7 @@ const Header = ({ isHome = true }) => {
             <div className="flex items-center sm:flex-col-reverse sm:justify-center">
               <span className="pl-6 border-l border-[#3F4546] md:border-0 md:pr-2 md:pl-0 sm:pr-0">
                 <p className="mb-1 text-left text-grey-title md:mb-0 sm:mt-3 sm:text-sm">Next car</p>
-                <p className="mr-11 text-left text-lg text-primary sm:hidden">
+                <p className="text-lg text-left mr-11 text-primary sm:hidden">
                   1973 Mercedez Benz
                 </p>
               </span>

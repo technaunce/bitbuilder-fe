@@ -105,18 +105,7 @@ export default function Home() {
   };
 
   const renderNoDataCard = () => {
-    const dataForNoData = [
-      {
-        _id: "nodata",
-        description: "No data under this category",
-        title: " ",
-        images: ["../asset/carPlaceholder.jpg"],
-      },
-    ];
-    return (
-      <ProductCardPlaceholder isLoading={false} />
-      // <SwiperSingle data={dataForNoData}/>
-    );
+    return <ProductCardPlaceholder isLoading={false} />;
   };
   return (
     <div className="main">

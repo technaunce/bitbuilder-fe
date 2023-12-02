@@ -11,6 +11,8 @@ export default function BannerSearch() {
   const [search, setSearch] = useState(param);
   // useDebounce(search,)
 
+  
+
   const results = [
     {
       id: 1,
@@ -37,7 +39,7 @@ export default function BannerSearch() {
   const onSearchChange = (e) => {
     const value = e.target.value;
     setSearch(value);
-    if(value){
+    if (value) {
       document.getElementById("overlay-search").style.display = "block";
     } else {
       document.getElementById("overlay-search").style.display = "none";
@@ -54,17 +56,22 @@ export default function BannerSearch() {
     console.log(e);
     setIsFocused(false);
   };
+
+  const triggerSearch = () => {
+    console.log(search);
+  };
   return (
     <>
       {param && (
-        <p className="text-2xl text-center text-cream mb-5">
+        <p className="mb-5 text-2xl text-center text-cream">
           Your search results
         </p>
       )}
       <div
         className={`flex justify-center items-center ${
           param && "flex-col gap-6"
-        }`}>
+        }`}
+      >
         <input
           type="text"
           value={search}
@@ -80,7 +87,10 @@ export default function BannerSearch() {
           onChange={onSearchChange}
         />
 
-        <div className={`${param ? "flex flex-row items-center" : ""}`}>
+        <div
+          className={`${param ? "flex flex-row items-center" : ""} cursor-pointer`}
+          onClick={triggerSearch}
+        >
           {param && <p className="text-primary mr-[10px]">Search Again</p>}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -88,7 +98,8 @@ export default function BannerSearch() {
             height={`${param ? "58" : "80"}`}
             viewBox="0 0 80 80"
             fill="none"
-            className="md:w-14 md:h-14">
+            className="md:w-14 md:h-14"
+          >
             <circle cx="40" cy="40" r="29" fill="#E8DECF" />
             {!param && <circle cx="40" cy="40" r="39" stroke="#5D5953" />}
 
@@ -110,18 +121,19 @@ export default function BannerSearch() {
           </svg>
         </div>
       </div>
-      {!!search ? (
+      {search ? (
         <>
           <div
             className="w-full max-w-[852px] min-h-[400px] py-10 px-12 bg-white rounded-sm shadow-t1 absolute z-50 mx-auto left-0 right-0 top-[100px]
-              md:min-h-[300px] md:p-8">
-            <div className="font-medium text-lg leading-8 mb-8 md:text-base">
+              md:min-h-[300px] md:p-8"
+          >
+            <div className="mb-8 text-lg font-medium leading-8 md:text-base">
               Suggestions
             </div>
             <ul>
               {results.map((item) => {
                 return (
-                  <li className="text-2xl mb-5 text-grey-body last:mb-0 hover:underline cursor-pointer md:text-lg">
+                  <li className="mb-5 text-2xl cursor-pointer text-grey-body last:mb-0 hover:underline md:text-lg">
                     {item.name}
                   </li>
                 );
