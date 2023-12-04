@@ -12,32 +12,50 @@ import "swiper/css/pagination";
 import "../CSS/sliderdual.css";
 
 // import required modules
-import { FreeMode, Keyboard, Navigation, Pagination, Thumbs } from "swiper/modules";
+import {
+  FreeMode,
+  Keyboard,
+  Navigation,
+  Pagination,
+  Thumbs,
+} from "swiper/modules";
 import Image from "next/image";
 
-export default function SlideDual() {
+export default function SlideDual({
+  title,
+  description,
+  bids,
+  bidLinks,
+  images,
+}) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
+  console.log(images)
+
+  const navigateToBidSite = () => {
+    window.open(bidLinks[0], "_blank");
+  };
 
   return (
     <>
       <div className="container">
-        <h2 className="text-center text-6xl text-primary mt-10 lg:text-4xl md:text-3xl">
-          1967 Mercedes-Benz 250 SL Pagoda
+        <h2 className="mt-10 text-6xl text-center text-primary lg:text-4xl md:text-3xl">
+          {title}
         </h2>
-        <h4 className="text-center text-2xl text-grey-title w-5/12 capitalize mt-6 leading-8 mx-auto lg:w-full lg:text-xl md:text-base">
-          A largely original example of this stylish 1970s coupe, refinished in
-          a classic period colour.
+        <h4 className="w-5/12 mx-auto mt-6 text-2xl leading-8 text-center capitalize text-grey-title lg:w-full lg:text-xl md:text-base h-[90px] text-ellipsis whitespace-normal overflow-hidden">
+          {description}
         </h4>
       </div>
 
       <div
         className="w-[805px] flex m-auto relative rounded-[52px] border-[1px] top-11 z-10 bg-white border-white justify-between items-center lg:w-4/5
-      md:px-8 sm:px-6">
+      md:px-8 sm:px-6"
+      >
         <div className="flex flex-col justify-center items-center p-[21px] pl-[88px] lg:pl-14 md:p-[10px_0px]">
           <span className="text-base text-grey-text tracking-[0.8px] sm:text-xxs">
             ENDS IN
           </span>
-          <span className="text-2xl text-red font-medium tracking-wide sm:text-sm">
+          <span className="text-2xl font-medium tracking-wide text-red sm:text-sm">
             6:05:35
           </span>
         </div>
@@ -46,7 +64,7 @@ export default function SlideDual() {
           <span className="text-base text-grey-text tracking-[0.8px] sm:text-xxs">
             CURRENT BID
           </span>
-          <span className="text-2xl text-black font-medium tracking-wide sm:text-sm">
+          <span className="text-2xl font-medium tracking-wide text-black sm:text-sm">
             £35,000
           </span>
         </div>
@@ -55,15 +73,17 @@ export default function SlideDual() {
           <span className="text-base text-grey-text tracking-[0.8px] sm:text-xxs">
             BIDS
           </span>
-          <span className="text-2xl text-black font-medium tracking-wide sm:text-sm">
-            11
+          <span className="text-2xl font-medium tracking-wide text-black sm:text-sm">
+            {bids}
           </span>
         </div>
         <button
+          onClick={navigateToBidSite}
           className="flex flex-col justify-center items-center bg-secondary text-primary rounded-r-[52px] py-[25px] pr-[48px] pl-[36px] transition group hover:bg-primary 
-        md:hidden">
+        md:hidden"
+        >
           <div className="flex items-center">
-            <span className="text-xl text-primary font-medium tracking-wide mr-2 group-hover:text-secondary">
+            <span className="mr-2 text-xl font-medium tracking-wide text-primary group-hover:text-secondary">
               Bid Now
             </span>
             <svg
@@ -71,7 +91,8 @@ export default function SlideDual() {
               width="24"
               height="23"
               viewBox="0 0 24 23"
-              fill="none">
+              fill="none"
+            >
               <path
                 d="M8.97707 4.78345L19.6216 7.2203L16.5854 17.9614"
                 stroke="#E8DECF"
@@ -123,55 +144,18 @@ export default function SlideDual() {
               enabled: false,
             },
           },
-        }}>
-        <SwiperSlide>
+        }}
+      >
+        {images?.length  ? images.splice(0,10).map((imageUrl)=>(
+          <SwiperSlide>
           <Image
-            src={"/asset/big-car-img.png"}
+            src={imageUrl}
             width={1290}
             height={722}
             alt="product image"
           />
         </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src={"/asset/big-car-img.png"}
-            width={1290}
-            height={722}
-            alt="product image"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src={"/asset/big-car-img.png"}
-            width={1290}
-            height={722}
-            alt="product image"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src={"/asset/big-car-img.png"}
-            width={1290}
-            height={722}
-            alt="product image"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src={"/asset/big-car-img.png"}
-            width={1290}
-            height={722}
-            alt="product image"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src={"/asset/big-car-img.png"}
-            width={1290}
-            height={722}
-            alt="product image"
-          />
-        </SwiperSlide>
+        )):(<></>)}
       </Swiper>
       <Swiper
         onSwiper={setThumbsSwiper}
@@ -185,63 +169,18 @@ export default function SlideDual() {
           768: {
             enabled: false,
           },
-        }}>
-        <SwiperSlide>
+        }}
+      >
+        {images?.length ? images.splice(0,10).map((imageUrl)=>(
+          <SwiperSlide>
           <Image
-            src={"/asset/big-car-img.png"}
+            src={imageUrl}
             width={1290}
             height={722}
             alt="product image"
           />
         </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src={"/asset/big-car-img.png"}
-            width={1290}
-            height={722}
-            alt="product image"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src={"/asset/big-car-img.png"}
-            width={1290}
-            height={722}
-            alt="product image"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src={"/asset/big-car-img.png"}
-            width={1290}
-            height={722}
-            alt="product image"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src={"/asset/big-car-img.png"}
-            width={1290}
-            height={722}
-            alt="product image"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src={"/asset/big-car-img.png"}
-            width={1290}
-            height={722}
-            alt="product image"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src={"/asset/big-car-img.png"}
-            width={1290}
-            height={722}
-            alt="product image"
-          />
-        </SwiperSlide>
+        )):(<></>)}
       </Swiper>
     </>
   );

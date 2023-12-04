@@ -4,81 +4,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { FreeMode, Keyboard, Navigation } from "swiper/modules";
 
-const mockData = [
-  {
-    image: "../asset/Bitmap (1).png",
-    soldPrice: "270000",
-    numberOfBids: 5,
-    currentBidPrice: 15000,
-    title: "Porsche Cayman 2007",
-    subheading:
-      "Eu tristique condimentum eu penatibus ad a orci condimentum dapibus adipiscing dolor dictumst eu.",
-    lhdOrRhdDrive: "LHD",
-    numberOfMiles: 25000,
-    countryIconImage: "https://example.com/flags/usa.png",
-  },
-  {
-    image: "../asset/2007.png",
-    soldPrice: "270000",
-    numberOfBids: 12,
-    currentBidPrice: 27000,
-    title: "Porsche Cayman 2007",
-    subheading:
-      "Eu tristique condimentum eu penatibus ad a orci condimentum dapibus adipiscing dolor dictumst eu.",
-    lhdOrRhdDrive: "LHD",
-    numberOfMiles: 1500,
-    countryIconImage: "https://example.com/flags/china.png",
-  },
-  {
-    image: "../asset/Bitmap (1).png",
-    soldPrice: "270000",
-    numberOfBids: 5,
-    currentBidPrice: 15000,
-    title: "Porsche Cayman 2007",
-    subheading:
-      "Eu tristique condimentum eu penatibus ad a orci condimentum dapibus adipiscing dolor dictumst eu.",
-    lhdOrRhdDrive: "LHD",
-    numberOfMiles: 25000,
-    countryIconImage: "https://example.com/flags/usa.png",
-  },
-  {
-    image: "../asset/2007.png",
-    soldPrice: "270000",
-    numberOfBids: 12,
-    currentBidPrice: 27000,
-    title: "Porsche Cayman 2007",
-    subheading:
-      "Eu tristique condimentum eu penatibus ad a orci condimentum dapibus adipiscing dolor dictumst eu.",
-    lhdOrRhdDrive: "LHD",
-    numberOfMiles: 1500,
-    countryIconImage: "https://example.com/flags/china.png",
-  },
-  {
-    image: "../asset/Bitmap (1).png",
-    soldPrice: "270000",
-    numberOfBids: 5,
-    currentBidPrice: 15000,
-    title: "Porsche Cayman 2007",
-    subheading:
-      "Eu tristique condimentum eu penatibus ad a orci condimentum dapibus adipiscing dolor dictumst eu.",
-    lhdOrRhdDrive: "LHD",
-    numberOfMiles: 25000,
-    countryIconImage: "https://example.com/flags/usa.png",
-  },
-  {
-    image: "../asset/2007.png",
-    soldPrice: "270000",
-    numberOfBids: 12,
-    currentBidPrice: 27000,
-    title: "Porsche Cayman 2007",
-    subheading:
-      "Eu tristique condimentum eu penatibus ad a orci condimentum dapibus adipiscing dolor dictumst eu.",
-    lhdOrRhdDrive: "LHD",
-    numberOfMiles: 1500,
-    countryIconImage: "https://example.com/flags/china.png",
-  },
-];
-
 const SwiperSingle = ({data}) => {
   return (
     <Swiper
@@ -122,6 +47,7 @@ const SwiperSingle = ({data}) => {
         <SwiperSlide>
           <ProductCard
             key={item._id}
+            id={item._id}
             imageUrl={item.images[0]}
             EndTime={"6:00:00"}
             CurrentPrice={item.currentBidPrice}

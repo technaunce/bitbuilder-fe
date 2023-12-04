@@ -12,15 +12,29 @@ const ProductCard = ({
   description,
   status = "notstarted",
   auctionDate = "14th October",
+  id,
 }) => {
-  const router = useRouter()
+  const router = useRouter();
+
+  const navigateToDetails = () => {
+    if (id) {
+      router.push(`/details/${id}`);
+    }
+  };
   return (
-    <div className="shadow-t1 bg-white cursor-pointer" onClick={() => router.push('/details')}>
+    <div
+      className="bg-white cursor-pointer shadow-t1"
+      onClick={navigateToDetails}
+    >
       <div className="w-full">
         <img className="w-full h-auto" src={imageUrl} alt={title} />
       </div>
       <div className="relative bottom-[38px] rounded-[50px] shadow-t2 w-[88%] bg-white mx-auto sm:w-[94%]">
-        <div className={`flex ${ status === "notstarted" ? 'justify-center':'justify-between'} items-center px-[36px] py-[17px] xmd:px-[22px] xmd:py-[14px] sm:px-[16px] sm:py-[11px]`}>
+        <div
+          className={`flex ${
+            status === "notstarted" ? "justify-center" : "justify-between"
+          } items-center px-[36px] py-[17px] xmd:px-[22px] xmd:py-[14px] sm:px-[16px] sm:py-[11px]`}
+        >
           {status === "notstarted" ? (
             <>
               <div className="text-center">
@@ -49,7 +63,7 @@ const ProductCard = ({
                     <p className="tracking-[0.6px] text-xs text-grey-title sm:text-[10px]">
                       ENDS IN
                     </p>
-                    <p className="text-red font-medium sm:text-sm">{EndTime}</p>
+                    <p className="font-medium text-red sm:text-sm">{EndTime}</p>
                   </>
                 )}
               </div>
@@ -92,7 +106,8 @@ const ProductCard = ({
                 width="17"
                 height="17"
                 viewBox="0 0 17 17"
-                fill="none">
+                fill="none"
+              >
                 <path
                   fill-rule="evenodd"
                   clip-rule="evenodd"
@@ -115,7 +130,8 @@ const ProductCard = ({
                 height="14"
                 viewBox="0 0 24 14"
                 fill="none"
-                className="sm:w-5 sm:h-3">
+                className="sm:w-5 sm:h-3"
+              >
                 <path
                   fill-rule="evenodd"
                   clip-rule="evenodd"
