@@ -20,6 +20,7 @@ import {
   Thumbs,
 } from "swiper/modules";
 import Image from "next/image";
+import useTimerEngine from "../utils/useTimerEngine";
 
 export default function SlideDual({
   title,
@@ -27,13 +28,26 @@ export default function SlideDual({
   bids,
   bidLinks,
   images,
+  bidEndTime,
+  currentValue,
 }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
-  console.log(images)
+  const { day, hours, minutes, seconds } = useTimerEngine(bidEndTime);
 
   const navigateToBidSite = () => {
     window.open(bidLinks[0], "_blank");
+  };
+
+  const getTimer = () => {
+    let dayLabel = day < 10 ? `0${day}` : day;
+    let hourLabel = hours < 10 ? `0${hours}` : hours;
+    let minutesLabel = minutes < 10 ? `0${minutes}` : minutes;
+    let secondsLabel = seconds < 10 ? `0${seconds}` : seconds;
+    if (dayLabel !== "00") {
+      return `${dayLabel}:${hourLabel}:${minutesLabel}:${secondsLabel}`;
+    } else {
+      return `${hourLabel}:${minutesLabel}:${secondsLabel}`;
+    }
   };
 
   return (
@@ -56,7 +70,7 @@ export default function SlideDual({
             ENDS IN
           </span>
           <span className="text-2xl font-medium tracking-wide text-red sm:text-sm">
-            6:05:35
+            {bidEndTime ? getTimer() : "00:00:00"}
           </span>
         </div>
         <hr className="w-[1.8px] h-[46px] bg-grey-keyline md:h-5" />
@@ -65,7 +79,7 @@ export default function SlideDual({
             CURRENT BID
           </span>
           <span className="text-2xl font-medium tracking-wide text-black sm:text-sm">
-            £35,000
+            {currentValue ? currentValue : " -- "}
           </span>
         </div>
         <hr className="w-[1.8px] h-[46px] bg-grey-keyline md:h-5" />
@@ -74,7 +88,7 @@ export default function SlideDual({
             BIDS
           </span>
           <span className="text-2xl font-medium tracking-wide text-black sm:text-sm">
-            {bids}
+            {bids || " -- "}
           </span>
         </div>
         <button
@@ -146,16 +160,22 @@ export default function SlideDual({
           },
         }}
       >
-        {images?.length  ? images.splice(0,10).map((imageUrl)=>(
-          <SwiperSlide>
-          <Image
-            src={imageUrl}
-            width={1290}
-            height={722}
-            alt="product image"
-          />
-        </SwiperSlide>
-        )):(<></>)}
+        {images?.length ? (
+          images.splice(0, 10).map((imageUrl) => {
+            return (
+              <SwiperSlide>
+                <Image
+                  src={imageUrl}
+                  width={1290}
+                  height={722}
+                  alt="product image"
+                />
+              </SwiperSlide>
+            );
+          })
+        ) : (
+          <></>
+        )}
       </Swiper>
       <Swiper
         onSwiper={setThumbsSwiper}
@@ -171,16 +191,20 @@ export default function SlideDual({
           },
         }}
       >
-        {images?.length ? images.splice(0,10).map((imageUrl)=>(
-          <SwiperSlide>
-          <Image
-            src={imageUrl}
-            width={1290}
-            height={722}
-            alt="product image"
-          />
-        </SwiperSlide>
-        )):(<></>)}
+        {images?.length ? (
+          images.splice(0, 10).map((imageUrl) => (
+            <SwiperSlide>
+              <Image
+                src={imageUrl}
+                width={1290}
+                height={722}
+                alt="product image"
+              />
+            </SwiperSlide>
+          ))
+        ) : (
+          <></>
+        )}
       </Swiper>
     </>
   );

@@ -17,7 +17,6 @@ const Details = () => {
 
   const handleDetails = (status, response) => {
     setIsPageLoading(false);
-    console.log(status, response);
     if (status) {
       setDetails(response?.data);
       setProductDetailsLocal(response?.data);
@@ -41,12 +40,14 @@ const Details = () => {
   return (
     <>
       <Header isHome={false} />
-      <SlideDual 
+      <SlideDual
         title={productDetailsLocal.title}
         description={productDetailsLocal.description}
         bids={productDetailsLocal.bidCount}
         bidLinks={productDetailsLocal.bidLinks}
         images={productDetailsLocal.images}
+        bidEndTime={productDetailsLocal.bidEndTime}
+        currentValue={productDetailsLocal.currentBidValue}
       />
       <section className="container mx-auto mb-10">
         <div className="flex justify-between lg:flex-col lg:mt-9 ">
@@ -120,39 +121,39 @@ const Details = () => {
             <section className="ml-1 mb-14">
               <p className="text-grey-title tracking-[0.2px] uppercase">make</p>
               <p className="text-2xl leading-[34px] capitalize mb-[18px]">
-                Mercedes-Benz
+              {productDetailsLocal?.specs?.make || " -- "}
               </p>
               <p className="text-grey-title tracking-[0.2px] uppercase">
                 model
               </p>
               <p className="text-2xl leading-[34px] capitalize mb-[18px]">
-                Pagoda
+              {productDetailsLocal?.specs?.model || " -- "}
               </p>
               <p className="text-grey-title tracking-[0.2px] uppercase">year</p>
               <p className="text-2xl leading-[34px] capitalize mb-[18px]">
-                1987
+              {productDetailsLocal?.specs?.year || " -- "}
               </p>
               <p className="text-grey-title tracking-[0.2px] uppercase">reg</p>
               <p className="text-2xl leading-[34px] capitalize mb-[18px]">
-                NSC 215F
+              {productDetailsLocal?.specs?.reg || " -- "}
               </p>
               <p className="text-grey-title tracking-[0.2px] uppercase">
                 Driver’s side
               </p>
               <p className="text-2xl leading-[34px] capitalize mb-[18px]">
-                LHD
+                {productDetailsLocal?.specs?.driverSide || " -- "}
               </p>
               <p className="text-grey-title tracking-[0.2px] uppercase">
                 Mileage
               </p>
               <p className="text-2xl leading-[34px] capitalize mb-[18px]">
-                65/88 kw/hp
+                {productDetailsLocal?.specs?.mileage || " -- "}
               </p>
               <p className="text-grey-title tracking-[0.2px] uppercase">
                 Location
               </p>
               <p className="text-2xl leading-[34px] capitalize mb-[18px]">
-                England
+                {productDetailsLocal?.specs?.location || " -- "}
               </p>
             </section>
             <h6 className="text-2xl font-medium leading-8 mb-9">MOT history</h6>

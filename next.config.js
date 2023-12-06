@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  images: {
+    domains: ['img.pistonheads.com', 'paddlup.com'],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
