@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { getData,postData } from "../../api/api";
+import { getData, postData } from "../../api/api";
 import { apiEndpoints } from "../../api/endpoints";
 
 const initialState = {
@@ -12,16 +12,24 @@ const initialState = {
 export const useCarsList = create((set) => ({
   context: initialState,
   setLiveAuctions: (data) => {
-    return set((state) => ({ ...state.context, liveAuctions: data }));
+    return set((state) => ({
+      context: { ...state.context, liveAuctions: data },
+    }));
   },
   setRecentlySold: (data) => {
-    return set((state) => ({ ...state.context, recentlySold: data }));
+    return set((state) => ({
+      context: { ...state.context, recentlySold: data },
+    }));
   },
   setRecentlyUnsold: (data) => {
-    return set((state) => ({ ...state.context, recentlyUnsold: data }));
+    return set((state) => ({
+      context: { ...state.context, recentlyUnsold: data },
+    }));
   },
   setComingSoon: (data) => {
-    return set((state) => ({ ...state.context, comingSoon: data }));
+    return set((state) => ({
+      context: { ...state.context, comingSoon: data },
+    }));
   },
   getLiveAuctionList: (callback, filterQuery) => {
     getList(callback, "Live", filterQuery);

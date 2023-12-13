@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import useDebounce from "../utils/useDebounce";
 import { useFilterStore } from "../app/store/filter";
+import { useCarsList } from "../app/store/listOfCars";
 
 export default function BannerSearch() {
   const [isFocused, setIsFocused] = useState(false);
@@ -13,10 +14,13 @@ export default function BannerSearch() {
   const [search, setSearch] = useState(param);
   // useDebounce(search,)
 
+  const [results, setResults] = useState([]);
+  const { context } = useCarsList();
+
   const { apply: applyFilter } = useFilterStore();
   const wrapperRef = useRef(null);
 
-  const results = [
+  const result = [
     {
       id: 1,
       name: "Porsche 911 Carrera S, 1920 - 1930, UK, recently sold",
@@ -43,7 +47,12 @@ export default function BannerSearch() {
     const value = e.target.value;
     setSearch(value);
     if (value) {
+      // setResults()
+      const suggestionResults = context.liveAuctions.filter((item) =>
+        item.title.toLowerCase().includes(value.toLowerCase())
+      );
       setIsSuggestionsOpen(true);
+      setResults(suggestionResults);
       document.getElementById("overlay-search").style.display = "block";
     } else {
       setIsSuggestionsOpen(false);
@@ -76,6 +85,10 @@ export default function BannerSearch() {
         title: "title",
       },
     ]);
+  };
+
+  const onSuggestionSelect = (title) => {
+    setSearch(title);
   };
 
   useEffect(() => {
@@ -161,8 +174,13 @@ export default function BannerSearch() {
             <ul>
               {results.map((item) => {
                 return (
-                  <li className="mb-5 text-2xl cursor-pointer text-grey-body last:mb-0 hover:underline md:text-lg">
-                    {item.name}
+                  <li
+                    className="mb-5 text-2xl cursor-pointer text-grey-body last:mb-0 hover:underline md:text-lg"
+                    onClick={() => {
+                      onSuggestionSelect(item.title);
+                    }}
+                  >
+                    {item.title}
                   </li>
                 );
               })}

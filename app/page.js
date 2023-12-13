@@ -54,6 +54,7 @@ export default function Home() {
   );
   const [comingSoonList, setComingSoonList] = useState(context.comingSoon);
 
+
   //API handlers
   const handleLiveAuctionList = (status, response) => {
     setLiveAuctions(response.data || []); // set in store

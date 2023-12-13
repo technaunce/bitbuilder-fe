@@ -3,7 +3,7 @@ import ProductCard from "./ProductCard";
 
 export default function CardPlaceholder({ loading }) {
   return (
-    <div className="w-[100%] max-w-[476px] ml-[50px]">
+    <div className="w-[100%] max-w-[476px] ml-[50px] py-[34px]">
       <ProductCard
         id={"0"}
         imageUrl={"../asset/carPlaceholder.jpg"}
