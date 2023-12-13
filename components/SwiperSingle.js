@@ -4,7 +4,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { FreeMode, Keyboard, Navigation } from "swiper/modules";
 
-const SwiperSingle = ({data}) => {
+const SwiperSingle = ({ data }) => {
+  console.log(data);
   return (
     <Swiper
       slidesPerView={3.2}
@@ -42,23 +43,25 @@ const SwiperSingle = ({data}) => {
           slidesPerView: 1.2,
           spaceBetween: 16,
         },
-      }}>
-      {data && data.map((item, index) => (
-        <SwiperSlide>
-          <ProductCard
-            key={item._id}
-            id={item._id}
-            imageUrl={item.images[0]}
-            EndTime={"6:00:00"}
-            CurrentPrice={item.currentBidPrice}
-            numberOfBids={item.numberOfBids}
-            title={item.title}
-            description={item.description}
-            driveMode={item.lhdOrRhdDrive}
-            numberOfMiles={item.numberOfMiles}
-          />
-        </SwiperSlide>
-      ))}
+      }}
+    >
+      {data &&
+        data.map((item, index) => (
+          <SwiperSlide className="Totooooo">
+            <ProductCard
+              key={item._id}
+              id={item._id}
+              imageUrl={item.images[0]}
+              EndTime={"6:00:00"}
+              CurrentPrice={item.currentBidPrice}
+              numberOfBids={item.numberOfBids}
+              title={item.title}
+              description={item.description}
+              driveMode={item.lhdOrRhdDrive}
+              numberOfMiles={item.numberOfMiles}
+            />
+          </SwiperSlide>
+        ))}
     </Swiper>
   );
 };

@@ -15,9 +15,14 @@ import { useCarsList } from "./store/listOfCars";
 import ProductCardPlaceholder from "../components/productCardPlaceholder";
 import { useFilterStore } from "./store/filter";
 import createUrlParamsForFilter from "../utils/createFilterContent";
+import CardPlaceholder from "../components/cardPlaceholder";
 
 export default function Home() {
   const [isSlideView, setIsSlideView] = useState(true);
+  const [isRecentlySoldLoading, setIsRecentlySoldLoading] = useState(false);
+  const [isLiveActionLoading, setIsLiveActionLoading] = useState(false);
+  const [isRecentlyUnsoldLoading, setIsRecentlyUnsoldLoading] = useState(false);
+  const [isComingSoonLoading, setIsComingSoonLoading] = useState(false);
   const searchParams = useSearchParams();
   const [search, setSearch] = useState(searchParams.get("search"));
 
@@ -56,6 +61,7 @@ export default function Home() {
     if (!status) {
       console.log("error in API");
     }
+    setIsLiveActionLoading(false);
   };
   const handleRecentlySoldList = (status, response) => {
     setRecentlySold(response.data || []); // set in store
@@ -63,6 +69,7 @@ export default function Home() {
     if (!status) {
       console.log("error in API");
     }
+    setIsRecentlySoldLoading(false);
   };
   const handleRecentlyUnsoldList = (status, response) => {
     setRecentlyUnsold(response.data || []); // set in store
@@ -70,6 +77,7 @@ export default function Home() {
     if (!status) {
       console.log("error in API");
     }
+    setIsRecentlyUnsoldLoading(false);
   };
   const handleComingSoon = (status, response) => {
     setComingSoon(response.data || []); // set in store
@@ -77,10 +85,15 @@ export default function Home() {
     if (!status) {
       console.log("error in API");
     }
+    setIsComingSoonLoading(false);
   };
 
   //API calls
   useEffect(() => {
+    setIsRecentlySoldLoading(true);
+    setIsLiveActionLoading(true);
+    setIsRecentlyUnsoldLoading(true);
+    setIsComingSoonLoading(true);
     const queryString = createUrlParamsForFilter(filterData);
     getLiveAuctionList(handleLiveAuctionList, queryString);
     getRecentlySoldList(handleRecentlySoldList, queryString);
@@ -96,8 +109,8 @@ export default function Home() {
     }
   };
 
-  const renderNoDataCard = () => {
-    return <ProductCardPlaceholder isLoading={false} />;
+  const renderNoDataCard = (loadingStatus) => {
+    return <CardPlaceholder loading={loadingStatus} />;
   };
   return (
     <div className="main">
@@ -111,7 +124,7 @@ export default function Home() {
         <HomeFilter setView={setIsSlideView} count={liveAuctionsList.length} />
         {liveAuctionsList.length
           ? renderCarsList(liveAuctionsList)
-          : renderNoDataCard()}
+          : renderNoDataCard(isLiveActionLoading)}
 
         <section className="container">
           <CardTitle
@@ -122,7 +135,7 @@ export default function Home() {
         </section>
         {recentlySoldList.length
           ? renderCarsList(recentlySoldList)
-          : renderNoDataCard()}
+          : renderNoDataCard(isRecentlySoldLoading)}
 
         <section className="container">
           <CardTitle
@@ -133,7 +146,7 @@ export default function Home() {
         </section>
         {recentlyUnsoldList.length
           ? renderCarsList(recentlyUnsoldList)
-          : renderNoDataCard()}
+          : renderNoDataCard(isRecentlyUnsoldLoading)}
 
         <section className="container">
           <CardTitle
@@ -144,7 +157,7 @@ export default function Home() {
         </section>
         {comingSoonList.length
           ? renderCarsList(comingSoonList)
-          : renderNoDataCard()}
+          : renderNoDataCard(isComingSoonLoading)}
 
         <Footer />
       </section>
