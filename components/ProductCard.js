@@ -26,8 +26,10 @@ const ProductCard = ({
       className="bg-white cursor-pointer shadow-t1"
       onClick={navigateToDetails}
     >
-      <div className="w-full">
-        <img className="w-full h-auto" src={imageUrl} alt={title} />
+      <div
+        className="w-full h-[231px] bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${imageUrl})` }}
+      >
       </div>
       <div className="relative bottom-[38px] rounded-[50px] shadow-t2 w-[88%] bg-white mx-auto sm:w-[94%]">
         <div
@@ -47,7 +49,7 @@ const ProductCard = ({
               </div>
             </>
           ) : (
-            <>
+            <div className="flex justify-between w-full">
               <div className="text-center">
                 {status === "unsold" ? (
                   <>
@@ -85,7 +87,7 @@ const ProductCard = ({
                   {numberOfBids}
                 </p>
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>

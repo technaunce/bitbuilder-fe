@@ -54,7 +54,6 @@ export default function Home() {
   );
   const [comingSoonList, setComingSoonList] = useState(context.comingSoon);
 
-
   //API handlers
   const handleLiveAuctionList = (status, response) => {
     setLiveAuctions(response.data || []); // set in store
@@ -111,7 +110,15 @@ export default function Home() {
   };
 
   const renderNoDataCard = (loadingStatus) => {
-    return <CardPlaceholder loading={loadingStatus} />;
+    if (loadingStatus) {
+      return <CardPlaceholder />;
+    } else {
+      return (
+        <div className="pl-[1rem] pr-[1rem] text-[#565656] py-[34px] container">
+          <p>No data available under this category.</p>
+        </div>
+      );
+    }
   };
   return (
     <div className="main">
