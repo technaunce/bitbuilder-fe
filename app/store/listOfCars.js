@@ -35,13 +35,13 @@ export const useCarsList = create((set) => ({
     getList(callback, "Live", filterQuery);
   },
   getRecentlySoldList: (callback, filterQuery) => {
-    getList(callback, "recentlySold", filterQuery); // TODO: Use the same name in Back End
+    getList(callback, "Recently sold", filterQuery); // TODO: Use the same name in Back End
   },
   getRecentlyUnsoldList: (callback, filterQuery) => {
     getList(callback, "recentlyUnsold", filterQuery); // TODO: Use the same name in Back End
   },
   getComingSoonList: (callback, filterQuery) => {
-    getList(callback, "comingSoon", filterQuery); // TODO: Use the same name in Back End
+    getList(callback, "Coming soon", filterQuery); // TODO: Use the same name in Back End
   },
   subscribeToNewsletter: (data, callback) => {
     subscribe(callback, data);
