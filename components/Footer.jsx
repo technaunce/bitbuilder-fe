@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useCarsList } from "../app/store/listOfCars";
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const { subscribeToNewsletter } = useCarsList();
 
   const handleSubmitCallback = (status, response) => {
@@ -12,16 +14,24 @@ export default function Footer() {
 
   const onSubmit = () => {
     const data = { email, name };
-    console.log(data)
-    subscribeToNewsletter(data, handleSubmitCallback);
+    if(email.length === 0 || name.length === 0){
+      setErrorMessage("All fields are mandatory")
+    }else if(!(emailRegex.test(email))){
+      setErrorMessage("Please enter a valid email")
+    }else{
+      setErrorMessage('')
+      subscribeToNewsletter(data, handleSubmitCallback);
+    }    
   };
 
   const onNameChange = (event) => {
+    setErrorMessage('')
     const nameValue = event.target.value;
     setName(nameValue);
   };
 
   const onEmailChange = (event) => {
+    setErrorMessage('')
     const emailValue = event.target.value;
     setEmail(emailValue);
   };
@@ -60,7 +70,7 @@ export default function Footer() {
             type="button"
             onClick={onSubmit}
             className="flex justify-center items-center text-primary w-full h-[77px] box-border p-4 bg-secondary
-             transition group hover:text-secondary hover:bg-primary hover:border hover:border-secondary mb-20 xmd:mb-10 sm:mb-[18px] sm:h-12"
+             transition group hover:text-secondary hover:bg-primary hover:border hover:border-secondary sm:h-12"
           >
             <span className="text-xl font-medium sm:text-base">
               Submit Details
@@ -88,6 +98,9 @@ export default function Footer() {
               />
             </svg>
           </button>
+          <p className="mb-20 xmd:mb-10 sm:mb-[18px] text-center text-[#ff0000] min-h-[25px]">
+            {errorMessage}
+          </p>
         </div>
       </section>
       <div className="flex flex-col items-center bg-secondary pt-[66px] pb-[119px] lg:p-12 md:p-10 sm:p-8">
