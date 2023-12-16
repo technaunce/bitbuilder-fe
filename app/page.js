@@ -105,7 +105,7 @@ export default function Home() {
     if (isSlideView && !search) {
       return <SwiperSingle data={data} />;
     } else {
-      return <HomeGridCards data={data}/>;
+      return <HomeGridCards data={data} />;
     }
   };
 
@@ -129,7 +129,11 @@ export default function Home() {
           id="overlay-search"
           className="absolute inset-0 z-40 hidden h-full bg-white opacity-50"
         ></div>
-        <HomeFilter setView={setIsSlideView} count={liveAuctionsList.length} />
+        <HomeFilter
+          setView={setIsSlideView}
+          sliderView={isSlideView}
+          count={liveAuctionsList.length}
+        />
         {liveAuctionsList.length
           ? renderCarsList(liveAuctionsList)
           : renderNoDataCard(isLiveActionLoading)}

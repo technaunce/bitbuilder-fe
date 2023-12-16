@@ -12,7 +12,7 @@ import { useFilterStore } from "../app/store/filter";
 import Tag from "./tags/tag";
 import Filter from "./filter/filter";
 
-const HomeFilter = ({ setView, count }) => {
+const HomeFilter = ({ setView, count, sliderView }) => {
   const [showContainer, setShowContainer] = useState(false);
   const [toggleView, setToggleView] = useState(false);
   const searchParams = useSearchParams();
@@ -89,6 +89,7 @@ const HomeFilter = ({ setView, count }) => {
                 search={search}
                 toggleView={toggleView}
                 setView={setView}
+                sliderView={sliderView}
               />
             </>
           )}
@@ -107,6 +108,7 @@ const HomeFilter = ({ setView, count }) => {
                 search={search}
                 toggleView={toggleView}
                 setView={setView}
+                sliderView={sliderView}
               />
             </>
           )}
