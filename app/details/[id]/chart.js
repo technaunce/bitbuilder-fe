@@ -28,7 +28,7 @@ export const options = {
     },
     title: {
       display: true,
-      text: "Chart.js Bar Chart",
+      text: "",
     },
   },
 };
@@ -39,7 +39,7 @@ export const data = {
   labels,
   datasets: [
     {
-      label: "Dataset 1",
+      label: "Price",
       data: labels.map(() => Math.floor(Math.random() * 1000)),
       backgroundColor: "#1B686C",
     },

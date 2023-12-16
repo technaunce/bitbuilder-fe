@@ -68,8 +68,8 @@ const Details = () => {
             <hr className="h-[1px] w-full mt-9 mb-10 bg-grey-keyline" />
             <h6 className="mb-5 text-2xl font-medium lg:text-xl ">Mileage</h6>
             <p className="text-2xl text-grey-body leading-[34px] mb-8 lg:text-base md:mb-5">
-              This car had done 100,000 miles at its last MOT on DATE with
-              10,000 of those in the past year
+              This car had done --- miles at its last MOT on DATE with
+              --- of those in the past year
             </p>
             <hr className="h-[1px] w-full mt-9 mb-10 bg-grey-keyline" />
             <DetailTabs />
@@ -82,14 +82,14 @@ const Details = () => {
             <div className="flex justify-between w-full pr-16 md:flex-col">
               <div>
                 <p className="text-5xl tracking-[1.8px] lg:text-[40px] lg:tracking-[1.5px]">
-                  £35,000
+                  ---
                 </p>
                 <p className="text-grey-body">From Auction</p>
               </div>
               <div className="w-[1px] h-[88px] bg-grey-keyline md:hidden"></div>
               <div className="md:mt-6">
                 <p className="text-5xl tracking-[1.8px] lg:text-[40px] lg:tracking-[1.5px]">
-                  £28,000
+                  ---
                 </p>
                 <p className="text-grey-body">From Classified listings</p>
               </div>

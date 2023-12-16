@@ -152,6 +152,7 @@ export default function SlideDual({
         keyboard={{
           enabled: true,
         }}
+        height={562}
         breakpoints={{
           769: {
             pagination: {
