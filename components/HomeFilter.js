@@ -88,6 +88,7 @@ const HomeFilter = ({ setView, count }) => {
                 toggleContainer={toggleContainer}
                 search={search}
                 toggleView={toggleView}
+                setView={setView}
               />
             </>
           )}
@@ -105,6 +106,7 @@ const HomeFilter = ({ setView, count }) => {
                 toggleContainer={toggleContainer}
                 search={search}
                 toggleView={toggleView}
+                setView={setView}
               />
             </>
           )}

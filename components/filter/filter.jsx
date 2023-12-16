@@ -1,4 +1,4 @@
-function Filter({ toggleContainer, search, toggleView }) {
+function Filter({ toggleContainer, search, toggleView, setView }) {
   return (
     <div className="flex items-center md:w-full md:pb-[17px] md:border-b md:border-[#3E5152]">
       <div className="flex items-center md:flex-col-reverse md:w-1/2 md:text-sm md:border-r md:border-[#3E5152]">
@@ -34,7 +34,6 @@ function Filter({ toggleContainer, search, toggleView }) {
               <span
                 className="mr-3 cursor-pointer"
                 onClick={() => {
-                  setToggleView(false);
                   setView(true);
                 }}
               >
@@ -104,7 +103,6 @@ function Filter({ toggleContainer, search, toggleView }) {
               </span>
               <span
                 onClick={() => {
-                  setToggleView(true);
                   setView(false);
                 }}
                 className={`cursor-pointer`}

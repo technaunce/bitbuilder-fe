@@ -105,7 +105,7 @@ export default function Home() {
     if (isSlideView && !search) {
       return <SwiperSingle data={data} />;
     } else {
-      <HomeGridCards></HomeGridCards>;
+      return <HomeGridCards data={data}/>;
     }
   };
 
