@@ -25,3 +25,7 @@ input {
 * {
   box-sizing: border-box;
 }
+
+.rotateNinety {
+  transform: rotate(180deg);
+}

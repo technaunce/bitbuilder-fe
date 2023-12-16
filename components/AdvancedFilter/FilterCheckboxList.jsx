@@ -20,7 +20,7 @@ export default function FilterCheckboxList({ title, itemList, onSelection }) {
                   );
                 }}
                 type="checkbox"
-                className="mr-5"
+                className="mr-5 cursor-pointer"
               />
               <label className="text-grey-body" htmlFor="">
                 {item}
@@ -67,6 +67,7 @@ export default function FilterCheckboxList({ title, itemList, onSelection }) {
               {isExpanded ? "View Less" : "View All"}
             </p>
             <svg
+            className={isExpanded ? 'rotateNinety':''}
               xmlns="http://www.w3.org/2000/svg"
               width="17"
               height="11"
